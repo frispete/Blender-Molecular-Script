@@ -8,7 +8,7 @@ from subprocess import Popen, PIPE
 chdir(getcwd()+"\\sources")
 
 try:
-    remove("core_37_64.cp37-win_amd64.pyd")
+    remove("core_38_64.cp38-win_amd64.pyd")
     remove("core.html")
     remove("core.c")
     shutil.rmtree("build")
@@ -20,8 +20,8 @@ except:
 
 with Popen([sys.executable, "setup.py", "build_ext", "--inplace"], stdout=PIPE) as proc:
     print(proc.stdout.read())
-   
-    shutil.move("core_37_64.cp37-win_amd64.pyd", "..\\molecular\\core_37_64.cp37-win_amd64.pyd")
+
+    shutil.move("core_38_64.cp38-win_amd64.pyd", "..\\molecular\\core_38_64.cp38-win_amd64.pyd")
 
     chdir("..")
 
@@ -33,8 +33,8 @@ with Popen([sys.executable, "setup.py", "build_ext", "--inplace"], stdout=PIPE) 
                 z.write(path.join(root, file), compress_type=ZIP_DEFLATED)
 
     chdir(getcwd()+"\\molecular")
-    try: 
-        remove("core_37_64.cp37-win_amd64.pyd")
+    try:
+        remove("core_38_64.cp38-win_amd64.pyd")
     except:
         pass
     chdir("..")
