@@ -19,8 +19,8 @@
 bl_info = {
     "name": "Molecular script",
     "author": "Jean-Francois Gallant(PyroEvil), Pavel_Blend, Martin Felke(scorpion81), H.P.Jansen(frispete)",
-    "version": (1, 1, 0),
-    "blender": (2, 80, 0),
+    "version": (1, 1, 1),
+    "blender": (2, 82, 0),
     "location": "Properties editor > Particles Tabs",
     "description": ("Molecular script"),
     "warning": "",  # used for warning icon and text in addons panel
