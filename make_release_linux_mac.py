@@ -31,9 +31,9 @@ except:
 with Popen([sys.executable, "setup.py", "build_ext", "--inplace"], stdout=PIPE) as proc:
     print(proc.stdout.read())
     if is_linux: #TODO, test
-        shutil.move("core_38_64.cpython-38-x86_64-linux-gnu.so", "../molecular/core_37_64.cpython-38-x86_64-linux-gnu.so")
+        shutil.move("core_38_64.cpython-38-x86_64-linux-gnu.so", "../molecular/core_38_64.cpython-38-x86_64-linux-gnu.so")
     else:
-        shutil.move("core_38_64.cpython-38-darwin.so", "../molecular/core_37_64.cpython-38-darwin.so")
+        shutil.move("core_38_64.cpython-38-darwin.so", "../molecular/core_38_64.cpython-38-darwin.so")
 
     chdir("..")
 
