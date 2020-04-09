@@ -11,7 +11,7 @@ if os_name == "WindowsPE":
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
-import Cython.Compiler.Options 
+import Cython.Compiler.Options
 
 Cython.Compiler.Options.annotate = True
 
@@ -19,10 +19,14 @@ if sys.version_info.major == 3 and sys.version_info.minor == 5 and bit_depth == 
     module_name = 'core_35_64'
 elif sys.version_info.major == 3 and sys.version_info.minor == 7 and bit_depth == '64bit':
     module_name = 'core_37_64'
+elif sys.version_info.major == 3 and sys.version_info.minor == 8 and bit_depth == '64bit':
+    module_name = 'core_38_64'
 elif sys.version_info.major == 3 and sys.version_info.minor == 5 and bit_depth == '32bit':
     module_name = 'core_35_32'
 elif sys.version_info.major == 3 and sys.version_info.minor == 7 and bit_depth == '32bit':
     module_name = 'core_37_32'
+elif sys.version_info.major == 3 and sys.version_info.minor == 8 and bit_depth == '32bit':
+    module_name = 'core_38_32'
 else:
     raise BaseException('Unsupported python version')
 
