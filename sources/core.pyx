@@ -7,7 +7,7 @@
 
 
 cimport cython
-from time import clock
+from time import time as clock
 from cython.parallel import parallel, prange, threadid
 from libc.stdlib cimport malloc, realloc, free, rand, srand, abs
 
@@ -340,7 +340,7 @@ cpdef simulate(importdata):
     if (maxZ - minZ) > (maxY - minY) and (maxZ - minZ) > (maxX - minX):
         parPool[0].axis = 2
         parPool[0].offset = 0 - minZ
-        parPool[0].max = maxZ + parPool[0].offset       
+        parPool[0].max = maxZ + parPool[0].offset
 
     if (parPool[0].max / ( cpunum * 10 )) > maxSize:
         maxSize = (parPool[0].max / ( cpunum * 10 ))
@@ -363,7 +363,7 @@ cpdef simulate(importdata):
         if Zsize > Xsize and Zsize > Ysize:
             kdtree.axis[i] = 2
             newZsize = Zsize / 2
-            
+
         Xsize = newXsize
         Ysize = newYsize
         Zsize = newZsize
@@ -518,7 +518,7 @@ cpdef simulate(importdata):
         parloc.append(parloctmp)
         parvel.append(parveltmp)
         parloctmp = []
-        parveltmp = [] 
+        parveltmp = []
 
     totallinks += newlinks
     pydeadlinks = 0
@@ -678,7 +678,7 @@ cdef void collide(Particle *par)nogil:
     cdef float damping2 = 0
     cdef int i = 0
     cdef int check = 0
-    cdef float Ua = 0 
+    cdef float Ua = 0
     cdef float Ub = 0
     cdef float Cr = 0
     cdef float Ma = 0
@@ -706,7 +706,7 @@ cdef void collide(Particle *par)nogil:
         par2 = &parlist[neighbours[i]]
         if par.id == par2.id:
             check += 10
-        if arraysearch(par2.id, par.collided_with, par.collided_num) == -1: 
+        if arraysearch(par2.id, par.collided_with, par.collided_num) == -1:
         # if par2 not in par.collided_with:
             if par2.sys.id != par.sys.id :
                 if par2.sys.othercollision_active == False or \
@@ -744,7 +744,7 @@ cdef void collide(Particle *par)nogil:
                     factor = (lenght - target) * invlenght
                     ratio1 = (par2.mass / (par.mass + par2.mass))
                     ratio2 = 1 - ratio1
-                    
+
                     mathtmp = factor * stiff
                     force1 = ratio1 * mathtmp
                     force2 = ratio2 * mathtmp
@@ -781,14 +781,14 @@ cdef void collide(Particle *par)nogil:
                     xi_vel[2] = par2.vel[2] - yi_vel[2]
 
                     '''
-                    Ua = factor1     
-                    Ub = -factor2 
+                    Ua = factor1
+                    Ub = -factor2
                     Cr = 1.0
                     Ma = par.mass
-                    Mb = par2.mass     
+                    Mb = par2.mass
                     Va = (Cr*Mb*(Ub-Ua)+Ma*Ua+Mb*Ub)/(Ma+Mb)
                     Vb = (Cr*Ma*(Ua-Ub)+Ma*Ua+Mb*Ub)/(Ma+Mb)
-                    
+
                     # mula = 1
                     # mulb = 1
                     # Va = Va * (1 - Cr)
@@ -1147,7 +1147,7 @@ cdef void KDTree_create_nodes(KDTree *kdtree,int parnum):#nogil:
 
     return
 
-   
+
 cdef Node KDTree_create_tree(
         KDTree *kdtree,
         SParticle *kdparlist,
@@ -1166,7 +1166,7 @@ cdef Node KDTree_create_tree(
         return kdtree.nodes[kdtree.numnodes]
     cdef int axis
     cdef int k = 3
-    axis =  kdtree.axis[depth] 
+    axis =  kdtree.axis[depth]
     # depth % k
     quick_sort(kdparlist + start, len, axis)
     '''
@@ -1283,7 +1283,7 @@ cdef void KDTree_rnn_search(
 
     cdef SParticle tparticle = node.particle[0]
 
-    axis = kdtree.axis[depth] 
+    axis = kdtree.axis[depth]
 
     if (fabs(point[axis] - tparticle.loc[axis])) <= dist:
         realsqdist = square_dist(point, tparticle.loc, 3)
@@ -1356,7 +1356,7 @@ cdef void create_link(int par_id, int max_link, int parothers_id=-1)nogil:
     cdef int *neighbours = NULL
     cdef int ii = 0
     cdef int neighboursnum = 0
-    cdef float rand_max = 32767 
+    cdef float rand_max = 32767
     cdef float relinkrandom = 0
     cdef Particle *par = NULL
     cdef Particle *par2 = NULL
@@ -1541,7 +1541,7 @@ cdef struct Node:
     int index
     char name
     int parent
-    float loc[3] 
+    float loc[3]
     SParticle *particle
     Node *left_child
     Node *right_child
@@ -1675,7 +1675,7 @@ cdef int compare_id (const void *u, const void *v)nogil:
         return -1
     if w > 0:
         return 1
-    return 0   
+    return 0
 
 
 cdef int arraysearch(int element, int *array, int len)nogil:
@@ -1728,7 +1728,7 @@ cdef void quick_sort(SParticle *a, int n, int axis)nogil:
         if l[0].loc[axis] < p:
             l += 1
             continue
-        
+
         if r[0].loc[axis] > p:
             r -= 1
             # // we need to check the condition (l <= r) every time
